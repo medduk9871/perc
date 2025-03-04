@@ -1,0 +1,55 @@
+# python run.py main --run_name humaneval-gpt35_final_plan --configs configs/humaneval-gpt35_final_plan.yaml run 
+# cp -r results/humaneval-gpt35_final_plan/ results/humaneval-gpt35_final_plan-nfr/
+# python run.py eval run --run_name humaneval-gpt35_final_plan --k [1,2,5,10]
+# python run.py eval run --run_name humaneval-gpt35_final_plan-nfr --ref_path data/humaneval_nfr.json --k [1,2,5,10]
+# python run.py eval run --run_name humaneval-gpt35_final_plan --sub_dir time --ref_path results/humaneval_nf-time/result.json --ref_key gen_tc  &&
+# python run.py eval run --run_name humaneval-gpt35_final_plan --sub_dir robustness --ref_path results/humaneval_nf-robustness/result.json --ref_key gen_tc &&
+# python run.py eval run --run_name humaneval-gpt35_final_plan --sub_dir maintainability --ref_path results/humaneval_nf-maintainability/result.json --ref_key gen_tc &&
+# python run.py eval run --run_name humaneval-gpt35_final_plan --sub_dir fr --ref_path results/humaneval_nf-fr/result.json --ref_key gen_tc &&
+# python run.py eval run --run_name humaneval-gpt35_final_plan --sub_dir reliability --ref_path data/humaneval_nfr.json --ignore_assertion_errors True
+
+
+target.dataset_type:
+  desc: "Dataset type for the target"
+  value: "openai_humaneval"
+target.dataset_split:
+  desc: "Dataset split for the target"
+  value: "test"
+
+example:
+  desc: "Example to use"
+  value:
+    final_plan:
+      dataset_type: "openai_humaneval"
+      path: "data/humaneval_tc_with_requirements.json"
+    code:   
+      dataset_type: "openai_humaneval"
+      path: "data/humaneval_tc_with_requirements.json"
+
+llm:
+  desc: "Language model to use"
+  value:
+    final_plan:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 0.95
+      temperature: 0.8
+      n: 10
+      max_retries: 1000000
+    code:  
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 1
+      temperature: 0
+      n: 1
+      max_retries: 1000000
+
+chain.model:
+  desc: "Chain model to use"
+  value: "multi_turn"
+chain.kwargs:
+  desc: "Chain kwargs to use"
+  value:
+    graph:
+      final_plan: []
+      code: ["final_plan"]

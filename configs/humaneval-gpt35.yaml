@@ -1,0 +1,40 @@
+# python run.py main --run_name humaneval-gpt35-nfr --configs configs/humaneval-gpt35.yaml run && 
+# python run.py eval run --run_name humaneval-gpt35-nfr --ref_path data/humaneval_nfr.json --k [1,2,5,10]
+# python run.py eval run --run_name humaneval-gpt35 --sub_dir time --ref_path results/humaneval_nf-time/result.json --ref_key gen_tc  &&
+# python run.py eval run --run_name humaneval-gpt35 --sub_dir robustness --ref_path results/humaneval_nf-robustness/result.json --ref_key gen_tc &&
+# python run.py eval run --run_name humaneval-gpt35 --sub_dir maintainability --ref_path results/humaneval_nf-maintainability/result.json --ref_key gen_tc &&
+# python run.py eval run --run_name humaneval-gpt35 --sub_dir fr --ref_path results/humaneval_nf-fr/result.json --ref_key gen_tc &&
+# python run.py eval run --run_name humaneval-gpt35 --sub_dir reliability --ref_path data/humaneval_nfr.json --ignore_assertion_errors True
+target.dataset_type:
+  desc: "Dataset type for the target"
+  value: "openai_humaneval"
+target.dataset_split:
+  desc: "Dataset split for the target"
+  value: "test"
+
+example:
+  desc: "Example to use"
+  value:
+    code:   
+      dataset_type: "openai_humaneval"
+      path: "data/humaneval_tc_with_requirements.json"
+
+llm:
+  desc: "Language model to use"
+  value:
+    code:  
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 0.95
+      temperature: 0.8
+      n: 10
+      max_retries: 1000000
+
+chain.model:
+  desc: "Chain model to use"
+  value: "multi_turn"
+chain.kwargs:
+  desc: "Chain kwargs to use"
+  value:
+    graph:
+      code: []

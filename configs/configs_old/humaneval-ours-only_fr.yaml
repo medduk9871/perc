@@ -1,0 +1,84 @@
+# python run.py main --run_name humaneval-ours-only_fr-good_ex --configs configs/humaneval-ours-only_fr.yaml run &&
+# python run.py eval run --run_name humaneval-ours-only_fr-good_ex --k [1,2,5,10]
+# python run.py eval run --run_name humaneval-ours-only_fr --ref_path data/humaneval_nfr.json --k [1,2,5,10]
+target.dataset_type:
+  desc: "Dataset type for the target"
+  value: "openai_humaneval"
+target.dataset_split:
+  desc: "Dataset split for the target"
+  value: "test"
+
+example:
+  desc: "Example to use"
+  value:
+    draft_plan:
+      dataset_type: "openai_humaneval"
+      path: "data/humaneval_tc_with_requirements.json"
+    requirements:
+      dataset_type: "openai_humaneval"
+      path: "data/humaneval_tc_with_requirements.json"
+    final_plan:
+      dataset_type: "openai_humaneval"
+      path: "data/humaneval_tc_with_requirements.json"
+      key: "final_plan"
+    code:
+      dataset_type: "openai_humaneval"
+      path: "data/humaneval_tc_with_requirements.json"
+      key: "code"
+
+cache:
+  desc: "Cache to use"
+  value:
+    draft_plan:
+      path: "results/humaneval-ours/result.json"
+      key: "draft_plan"
+    requirements:
+      path: "results/humaneval-ours/result.json"
+      key: "requirements"
+
+llm:
+  desc: "Language model to use"
+  value:
+    draft_plan:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 0.95
+      temperature: 0.8
+      n: 10
+      max_retries: 1000000
+    requirements:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 1
+      temperature: 0
+      n: 1
+      max_retries: 1000000
+    final_plan:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 1
+      temperature: 0
+      n: 1
+      max_retries: 1000000    
+    code:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 1
+      temperature: 0
+      n: 1
+      max_retries: 1000000
+
+chain.model:
+  desc: "Chain model to use"
+  value: "multi_turn"
+chain.kwargs:
+  desc: "Chain kwargs to use"
+  value:
+    graph:
+      draft_plan: []
+      requirements: ["draft_plan"]
+      requirements_selector: ["requirements"]
+      final_plan: ["draft_plan", "requirements_selector"]
+      code: ["draft_plan", "requirements_selector", "final_plan"]
+    parts: 
+      requirements: ["fr", "io", "expected", "edge"]

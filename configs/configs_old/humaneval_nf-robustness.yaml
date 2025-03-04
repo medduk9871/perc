@@ -1,0 +1,45 @@
+# python run.py main --run_name humaneval_nf-robustness --configs configs/humaneval_nf-robustness.yaml run
+target.dataset_type:
+  desc: "Dataset type for the target"
+  value: "openai_humaneval"
+target.dataset_split:
+  desc: "Dataset split for the target"
+  value: "test"
+
+example:
+  desc: "Example to use"
+  value: 
+    testcase:
+      dataset_type: "openai_humaneval"
+      path: "data/humaneval_tc_with_requirements.json"
+
+cache:
+  desc: "Cache to use"
+  value: 
+    testcase:
+      path: "data/humaneval_nfr.json"
+      src_key: "test"
+      tgt_key: "gen_tc"
+
+llm:
+  desc: "Language model to use"
+  value:
+    testcase:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 1
+      temperature: 0
+      n: 1
+      max_retries: 1000000
+
+chain.model:
+  desc: "Chain model to use"
+  value: "multi_turn"
+chain.kwargs:
+  desc: "Chain kwargs to use"
+  value:
+    graph:
+      testcase: []
+      testcase_selector: ["testcase"]
+    parts:
+      testcase: ["fr", "general", "edge", "nfr", "sqr", "robustness"]

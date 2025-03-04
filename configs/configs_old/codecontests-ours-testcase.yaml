@@ -1,0 +1,68 @@
+# python run.py main --run_name codecontests-ours-testcase --configs configs/codecontests-ours-testcase.yaml run
+target.dataset_type:
+  desc: "Dataset type for the target"
+  value: "deepmind/code_contests"
+target.dataset_split:
+  desc: "Dataset split for the target"
+  value: "test"
+
+example:
+  desc: "Example to use"
+  value:
+    draft_plan:
+      dataset_type: "openai_humaneval"
+      path: "data/codecontests-requirements.json"
+    requirements:
+      dataset_type: "openai_humaneval"
+      path: "data/codecontests-requirements.json"
+    final_plan:
+      dataset_type: "openai_humaneval"
+      path: "data/codecontests-requirements.json"
+    testcase:
+      dataset_type: "openai_humaneval"
+      path: "data/codecontests-requirements.json"
+
+llm:
+  desc: "Language model to use"
+  value:
+    draft_plan:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 1
+      temperature: 0
+      n: 1
+      max_retries: 1000000
+    requirements:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 1
+      temperature: 0
+      n: 1
+      max_retries: 1000000
+    final_plan:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 1
+      temperature: 0
+      n: 1
+      max_retries: 1000000    
+    testcase:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 1
+      temperature: 0
+      n: 1
+      max_retries: 1000000
+
+chain.model:
+  desc: "Chain model to use"
+  value: "multi_turn"
+chain.kwargs:
+  desc: "Chain kwargs to use"
+  value:
+    graph:
+      draft_plan: []
+      requirements: ["draft_plan"]
+      final_plan: ["draft_plan", "requirements"]
+      testcase: ["draft_plan", "requirements", "final_plan"]
+      testcase_selector: ["testcase"]

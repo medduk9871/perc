@@ -1,0 +1,8 @@
+langchain
+fire
+pandas
+pyarrow # If using Anaconda, $ conda install pyarrow -c conda-forge
+evaluate
+wandb
+networkx
+openai

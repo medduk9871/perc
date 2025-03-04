@@ -1,0 +1,19 @@
+# python run.py main --run_name codecontests-extract_prompt --configs configs/codecontests-extract_prompt.yaml run
+target.dataset_type:
+  desc: "Dataset type for the target"
+  value: "deepmind/code_contests"
+target.dataset_split:
+  desc: "Dataset split for the target"
+  value: "test"
+
+llm:
+  desc: "Language model to use"
+  value: {}
+
+chain.model:
+  desc: "Chain model to use"
+  value: "multi_turn"
+chain.kwargs:
+  desc: "Chain kwargs to use"
+  value:
+    graph: {}

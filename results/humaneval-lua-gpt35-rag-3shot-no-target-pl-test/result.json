@@ -1,0 +1,16 @@
+[
+    {
+        "id": "HumanEval/24",
+        "prompt": "-- For a given number n, find the largest number that divides n evenly, smaller than n\n-- >>> largest_divisor(15)\n-- 5\nlocal function largest_divisor(n)\n",
+        "solution": null,
+        "test": [
+            "lu = require('luaunit')\n\nfunction test_humaneval()\nlocal candidate = largest_divisor\n    lu.assertEquals(candidate(3), 1)\n    lu.assertEquals(candidate(7), 1)\n    lu.assertEquals(candidate(10), 5)\n    lu.assertEquals(candidate(100), 50)\n    lu.assertEquals(candidate(49), 7)\nend\n\nos.exit(lu.LuaUnit.run())"
+        ],
+        "draft_plan": [
+            "To find the largest number that divides `n` evenly and is smaller than `n`, we can follow these steps:\n\n- Start with a variable `largest_div` initialized to 0.\n- Iterate through each number from 1 to `n-1`.\n  - Check if the current number is a divisor of `n` (i.e., `n` is divisible by the current number).\n    - If it is, update `largest_div` to the current number.\n- After the iteration, `largest_div` will hold the largest divisor of `n` that is smaller than `n`.\n- Return `largest_div` as the result."
+        ],
+        "code": [
+            "function largest_divisor(n)\n    local largest_div = 0\n    for i = 1, n-1 do\n        if n % i == 0 then\n            largest_div = i\n        end\n    end\n    return largest_div\nend"
+        ]
+    }
+]

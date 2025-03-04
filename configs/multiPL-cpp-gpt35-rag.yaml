@@ -1,0 +1,67 @@
+# python run.py main --run_name codecontests-gpt35 --configs configs/codecontests-gpt35.yaml run &&
+# python run.py eval run --run_name codecontests-gpt35 --dataset_type deepmind/code_contests --timeout 6
+target.dataset_type:
+  desc: "Dataset type for the target"
+  value: "nuprl/MultiPL-E,humaneval-cpp"
+target.dataset_split:
+  desc: "Dataset split for the target"
+  value: "test"
+
+example:
+  desc: "Example to use"
+  value:
+    code:
+      dataset_type: "openai_humaneval"
+      path: "data/he_retrieved_examples_mpnet_10_pseudo_cpp.json"
+    final_plan:
+      dataset_type: "openai_humaneval"
+      path: "data/he_retrieved_examples_mpnet_10_pseudo_cpp.json"
+    requirements:
+      dataset_type: "openai_humaneval"
+      path: "data/he_retrieved_examples_mpnet_10_pseudo_cpp.json"
+    draft_plan:
+      dataset_type: "openai_humaneval"
+      path: "data/he_retrieved_examples_mpnet_10_pseudo_cpp.json"
+
+llm:
+  desc: "Language model to use"
+  value:
+    final_plan:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 0.95
+      temperature: 0.8
+      n: 10
+      max_retries: 1000000
+    requirements:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 0.95
+      temperature: 0.8
+      n: 10
+      max_retries: 1000000
+    draft_plan:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 0.95
+      temperature: 0.8
+      n: 10
+      max_retries: 1000000
+    code:
+      model: "gpt-35-turbo-16k"
+      max_tokens: 1024
+      top_p: 0.95
+      temperature: 0.8
+      n: 10
+      max_retries: 1000000
+
+chain.model:
+  desc: "Chain model to use"
+  value: "multi_turn"
+chain.kwargs:
+  desc: "Chain kwargs to use"
+  value:
+    graph:
+      code: []
+      # draft_plan: [requirements]
+      # code: [requirements, draft_plan]
