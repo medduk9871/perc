@@ -21,7 +21,7 @@
 
 2. Generate
   - ArchCode와 동일. 단, Retrieve 단계에서 생성한 파일을 config example에 설정
-
+  - config/humaneval-lua-gpt35-rag.yaml 참고
   ```
   example:
   desc: "Example to use"
